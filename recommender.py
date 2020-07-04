@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-from openpyxl import Workbook
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import requests
@@ -8,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 import threading
 
+# 投信連買
 def get_trust_always_buy_all(page_source):
     page = BeautifulSoup(page_source, 'html.parser')
     stock_list = page.find('table', id='tblStockList')
@@ -47,6 +47,7 @@ def share_capital(stock_id):
     source = browser.page_source
     return check_share_capital(source)
 
+# 去掉股本太大的公司
 def check_share_capital(page_source):
     page = BeautifulSoup(page_source, 'html.parser')
     stock_detail = page.find('span', id='ctl00_ContentPlaceHolder1_Label015')
@@ -70,7 +71,7 @@ def strToFloat(number):
 
     return float(value)
 
-
+# 大戶持股比例上升
 def check_shareholder_sturcture(page_source):
     page = BeautifulSoup(page_source, 'html.parser')
     stock_list = page.find('table', id='Details')
@@ -100,7 +101,8 @@ def check_shareholder_sturcture(page_source):
             break
 
     return can_buy
-
+    
+# Todo
 # 判斷是否多頭
 def long():
     shareholder_structure_url = 'https://www.wantgoo.com/stock/astock/techchart?stockno=' + stock_id
@@ -120,6 +122,7 @@ recommand = get_trust_always_buy_all(source)
 
 t_list=[]
 print(recommand)
+# Todo
 # for stock_id in recommand:
 #     service(stock_id)
     # t_list.append(threading.Thread(target=service,args=(stock_id,)))
