@@ -13,7 +13,7 @@ pip install -r requirement.txt
 ## Usage
 
 ```python
-pythomn recommender.py
+python recommender.py
 ```
 
 ## Todo
